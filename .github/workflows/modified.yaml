@@ -14,16 +14,17 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-        with:
-          ref: main
-
-      # CINTENT >> INSERT_CINTENT
-      - uses: JavidDitty/setup-cintent@a606c80c34ec190c6a20dea33d6d58ddb6c4e0cc
+        # CINTENT >> CANT_RUN
+        # with:
+        #   ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.13"
+
+      # CINTENT >> INSERT_CINTENT
+      - uses: JavidDitty/setup-cintent@3e5b2faf83a2ad32c22a1cd0f86f5f20ea53a5ab
 
       # CINTENT >> REMOVE_GIT
       # - name: Configure Git Identity
@@ -35,17 +36,18 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y graphviz
           make uml
-
-      - name: Detect UML changes
-        id: changes
-        run: |
-          git add docs/source/uml/*.png
-          if git diff --staged --exit-code; then
-            echo "No changes to commit"
-            echo "changes_exist=false" >> $GITHUB_OUTPUT
-          else
-            echo "changes_exist=true" >> $GITHUB_OUTPUT
-          fi
+          
+      # CINTENT >> REMOVE_GITHUB
+      # - name: Detect UML changes
+      #   id: changes
+      #   run: |
+      #     git add docs/source/uml/*.png
+      #     if git diff --staged --exit-code; then
+      #       echo "No changes to commit"
+      #       echo "changes_exist=false" >> $GITHUB_OUTPUT
+      #     else
+      #       echo "changes_exist=true" >> $GITHUB_OUTPUT
+      #     fi
 
       # CINTENT >> REMOVE_UPLOADS
       # - name: Create PR for changes
